@@ -1,6 +1,11 @@
 <script src="/static/admin/js/pusher.min.js"></script>
 
 <script>
+    /* 
+        在 internel/helpers 有一個 DefaultData function，專門
+        用來將資料傳遞給 Jet template engine。因此在這裡才能存取
+        變數 PreferenceMap 的資料。
+    */
     let pusher = new Pusher("{{.PreferenceMap["pusher-key"]}}", {
         authEndPoint: "/pusher/auth",
         wsHost: "localhost",
@@ -10,6 +15,7 @@
         disabledTransports: []
     });
 
+    // https://github.com/dimiro1/ipe/blob/master/api/handlers.go#L270
     let publicChannel = pusher.subscribe("public-channel");
 
     let attention = Prompt();
